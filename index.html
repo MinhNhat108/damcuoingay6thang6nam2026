@@ -301,6 +301,90 @@
       margin-top:10px;
     }
     
+    
+    .rsvp-modal-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.35);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+      z-index:9999;
+    }
+    .rsvp-modal{
+      width:min(100%, 420px);
+      background:#fffdf8;
+      border:2px solid #eadccf;
+      border-radius:20px;
+      box-shadow:0 18px 40px rgba(0,0,0,.18);
+      padding:22px 18px 18px;
+      text-align:center;
+    }
+    .rsvp-modal-title{
+      font-size:24px;
+      color:#8d312e;
+      font-weight:700;
+      margin-bottom:8px;
+    }
+    .rsvp-modal-sub{
+      font-size:15px;
+      color:#7c655c;
+      line-height:1.7;
+      margin-bottom:18px;
+    }
+    .rsvp-choice-row{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+    .rsvp-choice-btn{
+      appearance:none;
+      border:none;
+      background:#a73f3a;
+      color:#fff8ef;
+      padding:12px 20px;
+      border-radius:999px;
+      font-size:15px;
+      font-weight:600;
+      cursor:pointer;
+      min-width:120px;
+      box-shadow:0 10px 20px rgba(167,63,58,.14);
+    }
+    .rsvp-choice-btn.secondary{
+      background:#fff;
+      color:#8d312e;
+      border:1px solid #e1cfc2;
+    }
+    .rsvp-close{
+      margin-top:12px;
+      background:none;
+      border:none;
+      color:#8e6f66;
+      font-size:14px;
+      cursor:pointer;
+      text-decoration:underline;
+    }
+
+    @media (max-width: 900px){
+      .rsvp-modal{
+        width:min(100%, 360px);
+        padding:18px 14px 16px;
+      }
+      .rsvp-modal-title{
+        font-size:22px;
+      }
+      .rsvp-modal-sub{
+        font-size:14px;
+      }
+      .rsvp-choice-btn{
+        min-width:110px;
+        font-size:14px;
+        padding:11px 16px;
+      }
+    }
+
     .rsvp-action{
       text-align:center;
       margin-top:18px;
@@ -647,11 +731,11 @@
 
         <div class="center">
           <div class="serif-title">Trân trọng báo tin lễ thành hôn của</div>
-          <div class="script big" style="margin-top:10px;">Lê Minh Nhật</div>
-          <div class="honor-label">Chú rể</div>
+          <div class="honor-label" style="margin-top:10px;">Chú rể</div>
+          <div class="script big">Lê Minh Nhật</div>
           <div class="double-mini">囍</div>
-          <div class="script big">Phạm Thị Phương Anh</div>
           <div class="honor-label">Cô dâu</div>
+          <div class="script big">Phạm Thị Phương Anh</div>
         </div>
 
         <div class="ceremony-block">
@@ -692,7 +776,7 @@
         </div>
 
         <div class="rsvp-action">
-          <a class="rsvp-btn" href="#xac-nhan-tham-du" onclick="alert('Nút này có thể nối tới form xác nhận tham dự hoặc link Google Form/Zalo của bạn.'); return false;">Xác nhận tham dự</a>
+          <a class="rsvp-btn" href="#xac-nhan-tham-du" onclick="openRsvpModal(); return false;">Xác nhận tham dự</a>
           <div class="rsvp-note-small">Bấm vào đây để xác nhận tham dự</div>
         </div>
 
@@ -712,5 +796,35 @@
     document.getElementById("guestNameDisplay").textContent = guestName;
     document.getElementById("guestNameInside").textContent = guestName;
   </script>
+
+  <div class="rsvp-modal-overlay" id="rsvpModalOverlay" onclick="if(event.target===this) closeRsvpModal();">
+    <div class="rsvp-modal">
+      <div class="rsvp-modal-title">Tham gia dự tiệc</div>
+      <div class="rsvp-modal-sub">Xin vui lòng chọn một trong hai phương án bên dưới.</div>
+      <div class="rsvp-choice-row">
+        <button class="rsvp-choice-btn" onclick="chooseRsvp('Có')">✓ Có</button>
+        <button class="rsvp-choice-btn secondary" onclick="chooseRsvp('Không')">✓ Không</button>
+      </div>
+      <button class="rsvp-close" onclick="closeRsvpModal()">Đóng</button>
+    </div>
+  </div>
+
+  <script>
+    function openRsvpModal() {
+      const modal = document.getElementById('rsvpModalOverlay');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeRsvpModal() {
+      const modal = document.getElementById('rsvpModalOverlay');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function chooseRsvp(choice) {
+      alert('Bạn đã chọn: ' + choice);
+      closeRsvpModal();
+    }
+  </script>
+
 </body>
 </html>
