@@ -706,10 +706,7 @@
     function chooseRsvp(choice) {
       const url = new URL("https://script.google.com/macros/s/AKfycbz8Qck3H2sCK54yQ208qn7L7v-ZSOfDcdtSJIeFmYAuSjei5L5XpUwFI98oeYTjlCPyzg/exec");
       url.searchParams.set("name", guestName);
-      url.searchParams.set("relation", "");
-      url.searchParams.set("phone", "");
       url.searchParams.set("attend", choice);
-      url.searchParams.set("message", "Xác nhận từ link thiệp cưới");
 
       const buttons = document.querySelectorAll('.rsvp-choice-btn');
       buttons.forEach(btn => btn.disabled = true);
@@ -719,6 +716,13 @@
           alert("Đã gửi xác nhận: " + choice);
           closeRsvpModal();
         })
+        .catch(() => {
+          alert("Gửi xác nhận chưa thành công.");
+        })
+        .finally(() => {
+          buttons.forEach(btn => btn.disabled = false);
+        });
+    })
         .catch(() => {
           alert("Gửi xác nhận chưa thành công. Vui lòng thử lại.");
         })
