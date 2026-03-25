@@ -685,22 +685,25 @@
     </div>
   </div>
 
+  
   <script>
     const params = new URLSearchParams(window.location.search);
     const ten = params.get("ten");
     const guestName = ten && ten.trim() ? decodeURIComponent(ten).trim() : "Quý khách";
 
-    document.getElementById("guestNameDisplay").textContent = guestName;
-    document.getElementById("guestNameInside").textContent = guestName;
+    const guestDisplay = document.getElementById("guestNameDisplay");
+    const guestInside = document.getElementById("guestNameInside");
+    if (guestDisplay) guestDisplay.textContent = guestName;
+    if (guestInside) guestInside.textContent = guestName;
 
     function openRsvpModal() {
-      const modal = document.getElementById('rsvpModalOverlay');
-      if (modal) modal.style.display = 'flex';
+      const modal = document.getElementById("rsvpModalOverlay");
+      if (modal) modal.style.display = "flex";
     }
 
     function closeRsvpModal() {
-      const modal = document.getElementById('rsvpModalOverlay');
-      if (modal) modal.style.display = 'none';
+      const modal = document.getElementById("rsvpModalOverlay");
+      if (modal) modal.style.display = "none";
     }
 
     function chooseRsvp(choice) {
@@ -708,7 +711,7 @@
       url.searchParams.set("name", guestName);
       url.searchParams.set("attend", choice);
 
-      const buttons = document.querySelectorAll('.rsvp-choice-btn');
+      const buttons = document.querySelectorAll(".rsvp-choice-btn");
       buttons.forEach(btn => btn.disabled = true);
 
       fetch(url.toString(), { method: "GET", mode: "no-cors" })
@@ -718,13 +721,6 @@
         })
         .catch(() => {
           alert("Gửi xác nhận chưa thành công.");
-        })
-        .finally(() => {
-          buttons.forEach(btn => btn.disabled = false);
-        });
-    })
-        .catch(() => {
-          alert("Gửi xác nhận chưa thành công. Vui lòng thử lại.");
         })
         .finally(() => {
           buttons.forEach(btn => btn.disabled = false);
