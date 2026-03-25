@@ -800,7 +800,7 @@
   <div class="rsvp-modal-overlay" id="rsvpModalOverlay" onclick="if(event.target===this) closeRsvpModal();">
     <div class="rsvp-modal">
       <div class="rsvp-modal-title">Tham gia dự tiệc</div>
-      <div class="rsvp-modal-sub">Xin vui lòng chọn một trong hai phương án bên dưới.</div>
+      <div class="rsvp-modal-sub">Xin vui lòng chọn một trong hai phương án bên dưới. Kết quả sẽ được gửi tới người mời.</div>
       <div class="rsvp-choice-row">
         <button class="rsvp-choice-btn" onclick="chooseRsvp('Có')">✓ Có</button>
         <button class="rsvp-choice-btn secondary" onclick="chooseRsvp('Không')">✓ Không</button>
@@ -820,9 +820,41 @@
       if (modal) modal.style.display = 'none';
     }
 
-    function chooseRsvp(choice) {
-      alert('Bạn đã chọn: ' + choice);
-      closeRsvpModal();
+    async function chooseRsvp(choice) {
+      const params = new URLSearchParams(window.location.search);
+      const guestName = params.get("ten") && params.get("ten").trim()
+        ? decodeURIComponent(params.get("ten")).trim()
+        : "Quý khách";
+
+      const payload = {
+        name: guestName,
+        relation: "",
+        phone: "",
+        attend: choice,
+        message: "Xác nhận từ link thiệp cưới"
+      };
+
+      try {
+        const buttons = document.querySelectorAll('.rsvp-choice-btn');
+        buttons.forEach(btn => btn.disabled = true);
+
+        await fetch("https://script.google.com/macros/s/AKfycbz8Qck3H2sCK54yQ208qn7L7v-ZSOfDcdtSJIeFmYAuSjei5L5XpUwFI98oeYTjlCPyzg/exec", {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        alert("Đã gửi xác nhận: " + choice);
+        closeRsvpModal();
+      } catch (e) {
+        alert("Gửi xác nhận chưa thành công. Vui lòng thử lại.");
+      } finally {
+        const buttons = document.querySelectorAll('.rsvp-choice-btn');
+        buttons.forEach(btn => btn.disabled = false);
+      }
     }
   </script>
 
