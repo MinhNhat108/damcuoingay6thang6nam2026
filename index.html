@@ -67,6 +67,30 @@
       color:#f8e9cf;
       margin-bottom:8px;
     }
+    .cover-names .name-part{
+      display:inline-block;
+    }
+    .cover-names .ampersand{
+      display:inline-block;
+      margin:0 10px;
+    }
+    .cover-names-stacked{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:2px;
+    }
+    .cover-names-stacked .name-line{
+      display:block;
+      white-space:normal;
+    }
+    .cover-names-stacked .amp-line{
+      display:block;
+      font-size:.85em;
+      line-height:1;
+      margin:2px 0;
+    }
     .cover-date{
       letter-spacing:2px;
       font-size:14px;
@@ -348,13 +372,37 @@
         margin-bottom:10px;
       }
       .cover-names{
-        font-size:19px;
-        line-height:1.15;
+        font-size:21px;
+        line-height:1.18;
         max-width:100%;
-        white-space:nowrap;
-        letter-spacing:-0.4px;
+        letter-spacing:-0.2px;
+        text-align:center;
       }
-      .cover-date{
+      .cover-names .name-part{
+      display:inline-block;
+    }
+    .cover-names .ampersand{
+      display:inline-block;
+      margin:0 10px;
+    }
+    .cover-names-stacked{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:2px;
+    }
+    .cover-names-stacked .name-line{
+      display:block;
+      white-space:normal;
+    }
+    .cover-names-stacked .amp-line{
+      display:block;
+      font-size:.85em;
+      line-height:1;
+      margin:2px 0;
+    }
+    .cover-date{
         font-size:12px;
         letter-spacing:1px;
       }
@@ -534,9 +582,9 @@
 
     @media (max-width: 420px){
       .cover-names{
-        font-size:17px;
-        white-space:nowrap;
-        letter-spacing:-0.5px;
+        font-size:18px;
+        letter-spacing:-0.2px;
+        text-align:center;
       }
       .invite-line span.fill{
         font-size:20px;
@@ -561,7 +609,11 @@
     <section class="cover paper-shadow">
       <div class="cover-inner">
         <div class="double-happiness">囍</div>
-        <div class="cover-names">Lê Minh Nhật &amp; Phạm Thị Phương Anh</div>
+        <div class="cover-names cover-names-stacked">
+          <span class="name-line">Lê Minh Nhật</span>
+          <span class="amp-line">&amp;</span>
+          <span class="name-line">Phạm Thị Phương Anh</span>
+        </div>
         <div class="cover-date">06.06.2026</div>
 
         <div class="invite-line">
